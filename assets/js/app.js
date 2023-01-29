@@ -19,7 +19,8 @@ let i = 0,
     ballCurrentPosition = ballStart,
     user, ball, timerID,
     xDirection = 2,
-    yDirection = 2;
+    yDirection = 2,
+    currentScore = 0;
 
 class Block {
     constructor(xAxis, yAxis) {
@@ -116,6 +117,22 @@ function moveBall() {
 timerID = setInterval(moveBall, 30)
 
 function checkForCollisions() {
+    let b = 0;
+    while (b < blocks.length) {
+        if (
+            (ballCurrentPosition[0] > blocks[b].bottomLeft[0] && ballCurrentPosition[0] < blocks[b].bottomRight[0]) &&
+            ((ballCurrentPosition[1] + ballWidth) > blocks[b].bottomLeft[1] && ballCurrentPosition[1] < blocks[b].topLeft[1])
+        ) {
+            const allBlocks = document.querySelectorAll('.block');
+
+            allBlocks[b].classList.remove('block');
+            blocks.splice(b, 1);
+            score.innerHTML = ++currentScore;
+            changeDirection();
+        }
+        b++;
+    }
+
     if (
         ballCurrentPosition[0] >= boardWidth - ballWidth ||
         ballCurrentPosition[1] >= boardHeight - ballWidth ||
