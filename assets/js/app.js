@@ -1,5 +1,6 @@
 const grid = document.getElementById('grid');
 const score = document.getElementById('score');
+const start = document.getElementById('start');
 const numberOfBlocks = 15;
 const numberOfColumns = 5;
 const boardWidth = 560;
@@ -114,7 +115,12 @@ function moveBall() {
     checkForCollisions();
 }
 
-timerID = setInterval(moveBall, 30)
+
+start.addEventListener('click', startGame);
+
+function startGame() {
+    timerID = setInterval(moveBall, 30)
+}
 
 function checkForCollisions() {
     let b = 0;
