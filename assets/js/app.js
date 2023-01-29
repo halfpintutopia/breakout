@@ -129,6 +129,12 @@ function checkForCollisions() {
             blocks.splice(b, 1);
             score.innerHTML = ++currentScore;
             changeDirection();
+
+            if (blocks.length === 0) {
+                score.innerHTML = `W(h)oop W(h)oop, you win!`;
+                clearInterval(timerID);
+                document.removeEventListener('keydown', moveUser);
+            }
         }
         b++;
     }
@@ -137,6 +143,13 @@ function checkForCollisions() {
         ballCurrentPosition[0] >= boardWidth - ballWidth ||
         ballCurrentPosition[1] >= boardHeight - ballWidth ||
         ballCurrentPosition[0] <= 0
+    ) {
+        changeDirection();
+    }
+
+    if (
+        (ballCurrentPosition[0] > currentPosition[0] && ballCurrentPosition[0] < currentPosition[0] + blockWidth) &&
+        (ballCurrentPosition[1] > currentPosition[1] && ballCurrentPosition[1] < currentPosition[1] + blockHeight)
     ) {
         changeDirection();
     }
